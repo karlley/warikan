@@ -1,4 +1,6 @@
-LINE = "\n----------"
+require "pry"
+
+LINE = "--------------------------------------------------"
 
 class Warikan
   WARIKAN = 0
@@ -16,31 +18,32 @@ def warikan(posts)
   puts "How many female?"
   post[:female] = gets.chomp.to_i
 
-  puts "What's the total?(Enter with numbers)"
+  puts "What's the total price?"
   post[:price] = gets.chomp.to_i
 
-  # if post[:price].class == Integer
-  #   puts "Enter with number!"
-  #   return
-  # end
-
   if post[:male] == 0  
-    post[:female_price] = post[:price] / post[:female]
+    post[:female_price] = (post[:price] / post[:female]).ceil
   elsif post[:female] == 0
-    post[:male_price] = post[:price] / post[:male]
+    post[:male_price] = (post[:price] / post[:male]).ceil
   else
-    post[:male_price] = post[:price] * 0.7 / post[:male]
-    post[:female_price] = post[:price] * 0.3 / post[:female]
+    post[:male_price] = (post[:price] * 0.7 / post[:male]).ceil
+    post[:female_price] = (post[:price] * 0.3 / post[:female]).ceil
   end
 
   posts << post
 
   posts.each do |post|
-    puts "#{LINE}"
     puts "\n"
-    puts "男性が#{post[:male]}人, 女性が#{post[:female]}人"
-    puts "#{post[:price]}円の割り勘金額は"
-    puts "男性一人当たり#{post[:male_price]}円\n女性一人当たり#{post[:female_price]}円 です！"
+    puts "#{LINE}"
+    puts "男性: #{post[:male]}人 女性: #{post[:female]}人 飲み代: #{post[:price]} 円"
+    puts "WARIKAN!!"
+    if post[:male] == 0
+      puts "女性一人当たり: #{post[:female_price]} 円\n"
+    elsif post[:female] == 0
+      puts "男性一人当たり: #{post[:male_price]} 円\n"
+    else
+      puts "男性一人当たり: #{post[:male_price]} 円\n女性一人当たり: #{post[:female_price]} 円\n男性 : 女性 = 70 : 30"
+    end
     puts "#{LINE}"
     puts "\n"
   end
@@ -57,7 +60,7 @@ end
 posts = []
 
 while true do
-  puts "What do you want to do?"
+  puts "What do you want to do? Please select a number!"
   puts "[#{Warikan::WARIKAN}] Start Warikan!"
   puts "[#{Warikan::LOG}] Show Warikan Logs!"
   puts "[#{Warikan::END_PROGRAM}] Bye!\n#{LINE}"
@@ -66,7 +69,7 @@ while true do
 
   case operation
   when Warikan::WARIKAN
-    warikan(posts) # 情報入力
+    warikan(posts) 
   when Warikan::LOG
     # log
   when Warikan::END_PROGRAM
