@@ -34,7 +34,7 @@ def warikan(posts)
 
   posts.each do |post|
     puts "\n"
-    puts "#{LINE}"
+    puts LINE
     puts "男性: #{post[:male]}人 女性: #{post[:female]}人 飲み代: #{post[:price]} 円"
     puts "WARIKAN!!"
     if post[:male] == 0
@@ -44,7 +44,7 @@ def warikan(posts)
     else
       puts "男性一人当たり: #{post[:male_price]} 円\n女性一人当たり: #{post[:female_price]} 円\n男性 : 女性 = 70 : 30"
     end
-    puts "#{LINE}"
+    puts LINE
     puts "\n"
   end
 
@@ -52,9 +52,20 @@ end
 
 
 def log(posts)
-  puts "#{posts[:male]}"
-  puts "#{posts[:female]}"
-  puts "#{posts[:price]}"
+  index = 0
+  posts.each do |post|
+    puts "[#{index}] #{post[:price]} 円"
+    index += 1
+  end
+
+  puts "Select a number!"
+  log_number = gets.chomp.to_i
+  log = posts[log_number]
+
+  puts LINE
+  puts "log [#{index}]" 
+  puts "飲み代: #{log[:price]} 円\n男性一人当たり: #{log[:male_price]} 円\n女性一人当たり: #{log[:female_price]} 円\n男性 : 女性 = 70 : 30"
+puts LINE
 end
 
 posts = []
@@ -71,7 +82,7 @@ while true do
   when Warikan::WARIKAN
     warikan(posts) 
   when Warikan::LOG
-    # log
+    log(posts) 
   when Warikan::END_PROGRAM
     exit
   else
