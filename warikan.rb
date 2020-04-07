@@ -3,9 +3,9 @@ require "pry"
 LINE = "--------------------------------------------------"
 
 class Warikan
-  WARIKAN = 0
-  LOG = 1
-  END_PROGRAM = 2
+  WARIKAN = 1
+  LOG = 2
+  END_PROGRAM = 3 
 end
 
 
@@ -52,22 +52,28 @@ end
 
 
 def log(posts)
-  index = 0
+  # 投稿数表示
+  posts_count = posts.count
+  puts "There are #{posts_count} logs!"
+  # 投稿番号,合計金額表示
+  index = 1
   posts.each do |post|
     puts "[#{index}] #{post[:price]} 円"
     index += 1
   end
 
   puts "Select a number!"
-  log_number = gets.chomp.to_i
-  log = posts[log_number]
-
+  # index を1からスタートしてるので-1
+  log_number = gets.chomp.to_i - 1
+  # 表示する投稿を取得
+  log = posts[log_number] 
   puts LINE
-  puts "log [#{index}]" 
+  puts "log_number [#{log_number + 1}]" 
   puts "飲み代: #{log[:price]} 円\n男性一人当たり: #{log[:male_price]} 円\n女性一人当たり: #{log[:female_price]} 円\n男性 : 女性 = 70 : 30"
 puts LINE
 end
 
+# posts リセット
 posts = []
 
 while true do
