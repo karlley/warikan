@@ -2,6 +2,11 @@
 
 金額, 人数を入力すると割り勘の金額が表示される
 
+## Description
+
+- Ruby
+- pry
+
 ## purpuse
 
 Ruby のみで簡単なアプリの作り方
